@@ -37,8 +37,8 @@ public class Problem6 {
             }
         }
 
-        int offsetX = testCase.column % testCase.numColumns;
-        int offsetY = testCase.row % testCase.numRows;
+        int offsetX = -(testCase.column % testCase.numColumns);
+        int offsetY = -(testCase.row % testCase.numRows);
 
         testCase.shapes.forEach(shape -> {
             int extraTiles = Math.max(testCase.numRows, testCase.numColumns);
