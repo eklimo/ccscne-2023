@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Problem1 {
     public static void main(String[] args) {
         List<List<Integer>> inputs = readTestCases();
+
         inputs.stream()
                 .map(Problem1::processTestCase)
                 .forEach(System.out::println);
@@ -16,6 +17,7 @@ public class Problem1 {
         int longest = 0;
 
         int current = 0;
+
         for (int n : testCase) {
             if (n >= MINIMUM_HEATWAVE_TEMP) {
                 current++;

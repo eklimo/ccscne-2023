@@ -15,7 +15,7 @@ public class Problem6 {
 
     public static void main(String[] args) {
         List<TestCase> inputs = readTestCases();
-        
+
         inputs.stream()
                 .map(Problem6::processTestCase)
                 .forEach(matrix -> {
@@ -41,11 +41,14 @@ public class Problem6 {
         int offsetY = -(testCase.row % testCase.numRows);
 
         testCase.shapes.forEach(shape -> {
-            int extraTiles = Math.max(testCase.numRows, testCase.numColumns);
             int numTilesY = testCase.numRows / shape.tileSize + 1;
             int numTilesX = testCase.numColumns / shape.tileSize + 1;
+
+            int extraTiles = Math.max(testCase.numRows, testCase.numColumns);
+
             for (int tileY = -extraTiles; tileY < numTilesY + extraTiles; tileY++) {
                 for (int tileX = -extraTiles; tileX < numTilesX + extraTiles; tileX++) {
+
                     switch (shape.type) {
                         case SQUARE -> {
                             for (int r = 0; r < shape.size; r++) {

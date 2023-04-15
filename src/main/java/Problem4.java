@@ -8,27 +8,36 @@ public class Problem4 {
         List<List<String>> inputs = readTestCases();
 
         inputs.stream()
-                .map(Problem4::syllablesPerLine)
-                .map(result -> result.stream().map(Object::toString).toList())
+                .map(Problem4::processTestCase)
+                .map(result -> result.stream()
+                        .map(Object::toString)
+                        .toList()
+                )
                 .map(result -> String.join("-", result))
                 .forEach(System.out::println);
         System.out.println("done");
     }
 
-    private static List<Integer> syllablesPerLine(List<String> poem) {
-        return poem.stream().map(Problem4::countSyllables).toList();
+    private static List<Integer> processTestCase(List<String> poem) {
+        return poem.stream()
+                .map(Problem4::countSyllables)
+                .toList();
     }
 
     private static final Character[] vowels = new Character[]{'a', 'e', 'i', 'o', 'u'};
 
     private static int countSyllables(String line) {
-        return Arrays.stream(line.split(" ")).map(word -> {
+        return Arrays.stream(line.split(" "))
+                .map(word -> {
                     for (char vowel : vowels) {
                         word = word.replace(vowel, ' ');
                     }
-                    var x = Arrays.stream(word.split("\\s+")).filter(g -> !g.isEmpty()).toList();
-                    int result = (int) Math.max(x.size(), 1);
-                    return result;
+                    return (int) Math.max(
+                            Arrays.stream(word.split("\\s+"))
+                                    .filter(g -> !g.isEmpty())
+                                    .count()
+                            , 1
+                    );
                 })
                 .reduce(Integer::sum)
                 .get();

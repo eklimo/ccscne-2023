@@ -14,6 +14,7 @@ public class Problem2 {
 
     public static void main(String[] args) {
         Input input = readTestCases();
+
         input.landingSites.stream()
                 .map(landingSite -> Problem2.processTestCase(landingSite, input.craters))
                 .forEach(System.out::println);
@@ -21,7 +22,9 @@ public class Problem2 {
 
 
     private static long processTestCase(LandingSite landingSite, List<Crater> craters) {
-        Set<String> uniqueTypes = craters.stream().map(crater -> crater.type).collect(Collectors.toSet());
+        Set<String> uniqueTypes = craters.stream()
+                .map(crater -> crater.type)
+                .collect(Collectors.toSet());
 
         return uniqueTypes.stream()
                 .map(type ->

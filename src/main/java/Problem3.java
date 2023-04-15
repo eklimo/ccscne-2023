@@ -11,13 +11,14 @@ public class Problem3 {
     }
 
     public static void main(String[] args) {
-        List<int[][]> testCases = readTestCases();
-        testCases.stream()
-                .map(Problem3::getLengthOfCoastline)
+        List<int[][]> inputs = readTestCases();
+
+        inputs.stream()
+                .map(Problem3::processTestCase)
                 .forEach(System.out::println);
     }
 
-    private static int getLengthOfCoastline(int[][] elevation) {
+    private static int processTestCase(int[][] elevation) {
         int n = elevation.length;
 
         CellType[][] type = getCellTypes(elevation);
@@ -28,7 +29,9 @@ public class Problem3 {
         for (int r = 0; r < n; r++) {
             for (int c = 0; c < n; c++) {
                 if (type[r][c] == CellType.OCEAN) {
-                    coastline += getNeighbors(elevation, type, r, c).stream().filter(cell -> cell.type == CellType.COAST).count();
+                    coastline += getNeighbors(elevation, type, r, c).stream()
+                            .filter(cell -> cell.type == CellType.COAST)
+                            .count();
                 }
             }
         }
@@ -61,7 +64,9 @@ public class Problem3 {
          */
         for (int r = 0; r < n; r++) {
             for (int c = 0; c < n; c++) {
-                if (elevation[r][c] > 0 && getNeighbors(elevation, type, r, c).stream().anyMatch(cell -> cell.type == CellType.OCEAN)) {
+                if (elevation[r][c] > 0
+                        && getNeighbors(elevation, type, r, c).stream().anyMatch(cell -> cell.type == CellType.OCEAN)
+                ) {
                     type[r][c] = CellType.COAST;
                 }
             }
